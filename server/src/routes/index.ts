@@ -1,0 +1,50 @@
+import { Router } from 'express';
+import { accessRoutes } from '../modules/access/access.routes.js';
+import { attendanceRoutes } from '../modules/attendance/attendance.routes.js';
+import { auditRoutes } from '../modules/audit/audit.routes.js';
+import { authRoutes } from '../modules/auth/auth.routes.js';
+import { bandRoutes } from '../modules/bands/band.routes.js';
+import { deviceRoutes } from '../modules/devices/device.routes.js';
+import { eventRoutes } from '../modules/events/event.routes.js';
+import { locationRoutes } from '../modules/locations/location.routes.js';
+import { nfcRoutes } from '../modules/nfc/nfc.routes.js';
+import { notificationRoutes } from '../modules/notifications/notification.routes.js';
+import { profileRoutes } from '../modules/profiles/profile.routes.js';
+import { settingsRoutes } from '../modules/organizations/organization.routes.js';
+import { databaseRoutes } from '../modules/system/database.routes.js';
+import { sweepsRoutes } from '../modules/system/sweeps.routes.js';
+import { reportRoutes } from '../modules/reports/report.routes.js';
+import { transactionRoutes, walletRoutes } from '../modules/wallets/wallet.routes.js';
+import { posRoutes } from '../modules/pos/pos.routes.js';
+import { userRoutes } from '../modules/users/user.routes.js';
+import { visitorPublicRoutes, visitorRoutes } from '../modules/visitors/visitor.routes.js';
+import { billingRoutes } from '../modules/billing/billing.routes.js';
+
+export const apiRoutes = Router();
+
+apiRoutes.use('/auth', authRoutes);
+apiRoutes.use('/users', userRoutes);
+apiRoutes.use('/bands', bandRoutes);
+apiRoutes.use('/nfc', nfcRoutes);
+apiRoutes.use('/attendance', attendanceRoutes);
+apiRoutes.use('/access', accessRoutes);
+apiRoutes.use('/wallets', walletRoutes);
+apiRoutes.use('/pos', posRoutes);
+apiRoutes.use('/transactions', transactionRoutes);
+apiRoutes.use('/devices', deviceRoutes);
+apiRoutes.use('/locations', locationRoutes);
+apiRoutes.use('/events', eventRoutes);
+apiRoutes.use('/notifications', notificationRoutes);
+apiRoutes.use('/profiles', profileRoutes);
+apiRoutes.use('/audit-logs', auditRoutes);
+apiRoutes.use('/settings', settingsRoutes);
+apiRoutes.use('/system/database', databaseRoutes);
+apiRoutes.use('/system/sweeps', sweepsRoutes);
+apiRoutes.use('/reports', reportRoutes);
+apiRoutes.use('/visitors', visitorRoutes);
+apiRoutes.use('/v', visitorPublicRoutes);
+apiRoutes.use('/billing', billingRoutes);
+
+apiRoutes.get('/health', (req, res) => {
+  res.json({ success: true, data: { ok: true, time: new Date().toISOString() }, requestId: req.requestId });
+});

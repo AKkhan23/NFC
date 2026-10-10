@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: aridatapass-api
+    runtime: node
+    plan: free
+    rootDir: .
+    buildCommand: npm install --include=dev && npm run build -w server
+    startCommand: node server/dist/index.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: 20.18.1
+      - key: MONGODB_URI
+        sync: false
+      - key: MONGODB_CLUSTER_URI
+        sync: false
+      - key: DB_MODE
+        value: cluster
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_REFRESH_SECRET
+        sync: false
+      - key: CORS_ORIGINS
+        value: https://aridatapass.vercel.app
+      - key: CLIENT_URL
+        value: https://aridatapass.vercel.app

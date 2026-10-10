@@ -1,0 +1,34 @@
+# Deps
+node_modules/
+dist/
+build/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Runtime DB-mode choice (may contain a pasted Atlas URI) — never commit
+.db-mode.json
+server/.db-mode.json
+
+# Logs
+*.log
+logs/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Vite
+client/dist/
+client/.vite/
+
+# TS build info
+*.tsbuildinfo
+
+# Test coverage
+coverage/
