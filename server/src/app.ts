@@ -6,7 +6,7 @@ import rateLimit from 'express-rate-limit';
 import { env } from './config/env.js';
 import { httpLogger, requestIdMiddleware } from './middleware/request.js';
 import { errorHandler, notFoundHandler } from './middleware/errorHandler.js';
-import { apiRoutes } from './routes/index.js';
+import { apiRoutes } from './routes/';
 
 export function createApp() {
   const app = express();

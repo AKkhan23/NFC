@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { api } from '../../lib/api';
 
 interface Verify {
   kind: string;
@@ -17,7 +17,7 @@ export function VisitorPassPage(): JSX.Element {
   const { token } = useParams();
   const query = useQuery({
     queryKey: ['visitor-verify', token],
-    queryFn: async () => (await axios.get(`/api/v/${token}`)).data.data as Verify,
+    queryFn: async () => (await api.get(`/v/${token}`)).data.data as Verify,
     enabled: !!token && /^[0-9a-f]{64}$/.test(token ?? ''),
     retry: false,
   });

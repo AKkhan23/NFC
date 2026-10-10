@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Download } from 'lucide-react';
-import { api } from '../../lib/api';
+import { api, API_BASE } from '../../lib/api';
 import { inr } from '../../lib/format';
 import { Button, Card, PageHeader, Skeleton } from '../../components/ui';
 
@@ -42,7 +42,7 @@ export function ReportsPage(): JSX.Element {
 
   function download(domain: string): void {
     const qs = new URLSearchParams({ domain, ...params }).toString();
-    window.open(`/api/reports/export?${qs}`, '_blank');
+    window.open(`${API_BASE}/reports/export?${qs}`, '_blank');
   }
 
   return (

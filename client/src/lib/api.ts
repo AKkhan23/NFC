@@ -2,8 +2,25 @@ import axios from 'axios';
 import { useAuthStore } from '../stores/authStore';
 import { newId } from './utils';
 
+export function getApiBase(): string {
+  const raw = (import.meta.env.VITE_API_URL as string | undefined)?.trim();
+  if (raw) return raw.replace(/\/+$/, '');
+  return '/api';
+}
+
+export const API_BASE = getApiBase();
+
+if (typeof window !== 'undefined' && API_BASE === '/api' && window.location.hostname.endsWith('.vercel.app')) {
+  // eslint-disable-next-line no-console
+  console.warn(
+    '[api] VITE_API_URL is not set — falling back to relative "/api". ' +
+      'On Vercel this calls the static frontend itself (POST → 405). ' +
+      'Set VITE_API_URL=https://<your-render-service>.onrender.com/api in Vercel → Settings → Environment Variables and redeploy.',
+  );
+}
+
 export const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL ?? '/api',
+  baseURL: API_BASE,
   withCredentials: true,
 });
 
@@ -23,7 +40,7 @@ api.interceptors.response.use(
       try {
         const refresh = useAuthStore.getState().refreshToken;
         const res = await axios.post(
-          `${import.meta.env.VITE_API_URL ?? '/api'}/auth/refresh`,
+          `${API_BASE}/auth/refresh`,
           { refreshToken: refresh },
           { withCredentials: true },
         );

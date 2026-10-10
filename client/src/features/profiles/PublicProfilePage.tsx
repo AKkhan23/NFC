@@ -21,7 +21,7 @@ import {
   UserRound,
   Youtube,
 } from 'lucide-react';
-import { api } from '../../lib/api';
+import { api, API_BASE } from '../../lib/api';
 
 export interface PublicProfile {
   slug: string;
@@ -87,7 +87,7 @@ export function PublicProfilePage(): JSX.Element {
 
   const pageUrl = useMemo(() => window.location.href, []);
   const vcardUrl = useMemo(
-    () => `${import.meta.env.VITE_API_URL ?? '/api'}/profiles/p/${profile?.slug ?? slug}/vcard`,
+    () => `${API_BASE}/profiles/p/${profile?.slug ?? slug}/vcard`,
     [profile?.slug, slug],
   );
 
